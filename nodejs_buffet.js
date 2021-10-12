@@ -107,3 +107,20 @@ const queue = async.queue((task, completed) => {
 /* The concurrency value is set to one,
 Which means that one element is being
 Processed at a particular time */
+
+//EVENT LOOP
+
+/* https://www.geeksforgeeks.org/node-js-event-loop/
+The main loop is single-threaded and all async calls are managed by libuv library. This is because libuv sets up a thread pool to handle such concurrency. How many threads will be there in the thread pool depends upon the number of cores but you can override this. */
+
+//nextTick()
+
+/* Every time the event loop takes a full trip, we call it a tick. When we pass a function to process.nextTick(), we instruct the engine to invoke this function at the end of the current operation, before the next event loop tick starts: */
+
+process.nextTick(() => {
+    //do something
+})
+
+/* The event loop is busy processing the current function code. When this operation ends, the JS engine runs all the functions passed to nextTick calls during that operation. It's the way we can tell the JS engine to process a function asynchronously (after the current function), but as soon as possible, not queue it. Calling setTimeout(() => {}, 0) will execute the function at the end of next tick, much later than when using nextTick() which prioritizes the call and executes it just before the beginning of the next tick. Use nextTick() when you want to make sure that in the next event loop iteration that code is already executed. */
+
+//20
