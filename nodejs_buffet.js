@@ -123,4 +123,44 @@ process.nextTick(() => {
 
 /* The event loop is busy processing the current function code. When this operation ends, the JS engine runs all the functions passed to nextTick calls during that operation. It's the way we can tell the JS engine to process a function asynchronously (after the current function), but as soon as possible, not queue it. Calling setTimeout(() => {}, 0) will execute the function at the end of next tick, much later than when using nextTick() which prioritizes the call and executes it just before the beginning of the next tick. Use nextTick() when you want to make sure that in the next event loop iteration that code is already executed. */
 
-//20
+//ASYNC AWAIT
+
+/* https://nodejs.dev/learn/modern-asynchronous-javascript-with-async-and-await */
+
+//EventEmitter
+
+/* the interaction of the user is handled through events: mouse clicks, keyboard button presses, reacting to mouse movements, and so on. On the backend side, Node.js offers us the option to build a similar system using the events module. This module, in particular, offers the EventEmitter class, which we'll use to handle our events.
+const EventEmitter = require('events')
+const eventEmitter = new EventEmitter()
+
+This object exposes, among many others, the on and emit methods.
+
+emit is used to trigger an event
+on is used to add a callback function that's going to be executed when the event is triggered
+For example, let's create a start event, and as a matter of providing a sample, we react to that by just logging to the console: */
+
+eventEmitter.on('start', number => {
+    console.log(`started ${number}`)
+});
+
+eventEmitter.emit('start', 23);
+
+/* the event handler function is triggered, and we get the console log. The EventEmitter object also exposes several other methods to interact with events, like
+
+once(): add a one-time listener
+
+removeListener() / off(): remove an event listener from an event
+
+removeAllListeners(): remove all listeners for an event */
+
+//STREAM
+
+/* https://nodejs.dev/learn/nodejs-streams */
+
+//BUFFERS
+
+/* https://nodejs.dev/learn/nodejs-buffers */
+
+//MIDDLEWARE
+
+/* Middleware comes in between your request and business logic. It is mainly used to capture logs and enable rate limit, routing, authentication, basically whatever that is not a part of business logic. There are third-party middleware also such as body-parser and you can write your own middleware for a specific use case. */
