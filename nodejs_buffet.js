@@ -4,7 +4,7 @@
 
 //NODEJS
 
-/* Node.js is a virtual machine that uses JavaScript as its scripting language and runs Chrome’s V8 JavaScript engine.It is based on an event - driven architecture where I / O runs asynchronously making it lightweight and efficient.Node.js provides simplicity in development because of its non - blocking I / O and event - based model results in short response time and concurrent processing, unlike other frameworks where developers have to use thread management. It runs on a chrome v8 engine which is written in c++ and is highly performant with constant improvement. */
+/* Node.js is a virtual machine that uses JavaScript as its scripting language and runs Chrome’s V8 JavaScript engine. It is based on an event - driven architecture where I / O runs asynchronously making it lightweight and efficient. Node.js provides simplicity in development because of its non - blocking I / O and event - based model results in short response time and concurrent processing, unlike other frameworks where developers have to use thread management. It runs on a chrome v8 engine which is written in c++ and is highly performant with constant improvement. */
 
 //NODEJS CONTROL FLOW
 
@@ -20,7 +20,7 @@ function myFunc(arg) {
 
 setTimeout(myFunc, 1500, 'funky');
 
-/* The above function myFunc() will execute as close to 1500 milliseconds as possible due to the call of setTimeout(). The timeout interval that is set cannot be relied upon to execute after that exact number of milliseconds.This is because other executing code that blocks or holds onto the event loop will push the execution of the timeout back. The only guarantee is that the timeout will not execute sooner than the declared timeout interval. setTimeout() returns a Timeout object that can be used to reference the timeout that was set.This returned object can be used to cancel the timeout as well as change the execution behavior.
+/* The above function myFunc() will execute a minimum of 1500 milliseconds later due to the call of setTimeout(). The timeout interval that is set cannot be relied upon to execute after that exact number of milliseconds.This is because other executing code that blocks or holds onto the event loop will push the execution of the timeout back. The only guarantee is that the timeout will not execute sooner than the declared timeout interval. setTimeout() returns a Timeout object that can be used to reference the timeout that was set.This returned object can be used to cancel the timeout as well as change the execution behavior.
 
 setImmediate() will execute code at the end of the current event loop cycle. This code will execute after any I/O operations in the current event loop and before any timers scheduled for the next event loop. This code execution could be thought of as happening "right after this", meaning any code following the setImmediate() function call will execute before the setImmediate() function argument. The first argument to setImmediate() will be the function to execute. Any subsequent arguments will be passed to the function when it is executed. Here's an example: */
 
@@ -86,7 +86,7 @@ The fork function is a variation of the spawn function for spawning node process
 
 //ASYNC.QUEUE()
 
-/* The async module is is designed for working with asynchronous JavaScript in NodeJS. The async.queue returns a queue object which is capable of concurrent processing i.e processing multiple items at a single time. Example: */
+/* The async module is designed for working with asynchronous JavaScript in NodeJS. The async.queue returns a queue object which is capable of concurrent processing i.e processing multiple items at a single time. Example: */
 
 const queue = async.queue((task, completed) => {
     /* Here task is the current element being
@@ -96,7 +96,6 @@ const queue = async.queue((task, completed) => {
 
     // Simulating a complex process.
     setTimeout(() => {
-        3
         // Number of elements to be processed.
         const remaining = queue.length();
         completed(null, { task, remaining });
@@ -111,6 +110,7 @@ Processed at a particular time */
 //EVENT LOOP
 
 /* https://www.geeksforgeeks.org/node-js-event-loop/
+
 The main loop is single-threaded and all async calls are managed by libuv library. This is because libuv sets up a thread pool to handle such concurrency. How many threads will be there in the thread pool depends upon the number of cores but you can override this. */
 
 //nextTick()
@@ -129,14 +129,15 @@ process.nextTick(() => {
 
 //EventEmitter
 
-/* the interaction of the user is handled through events: mouse clicks, keyboard button presses, reacting to mouse movements, and so on. On the backend side, Node.js offers us the option to build a similar system using the events module. This module, in particular, offers the EventEmitter class, which we'll use to handle our events.
-const EventEmitter = require('events')
-const eventEmitter = new EventEmitter()
+/* the interaction of the user is handled through events: mouse clicks, keyboard button presses, reacting to mouse movements, and so on. On the backend side, Node.js offers us the option to build a similar system using the events module. This module, in particular, offers the EventEmitter class, which we'll use to handle our events. */
 
-This object exposes, among many others, the on and emit methods.
+const eventEmitter = new (require('events'))();
 
-emit is used to trigger an event
+/* This object exposes, among many others, the on and emit methods.
+
+Emit is used to trigger an event
 on is used to add a callback function that's going to be executed when the event is triggered
+
 For example, let's create a start event, and as a matter of providing a sample, we react to that by just logging to the console: */
 
 eventEmitter.on('start', number => {
